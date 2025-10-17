@@ -1,0 +1,44 @@
+# Netlify Configuration File
+[build]
+  # Build command
+  command = "npm run build"
+  
+  # Publish directory
+  publish = "dist"
+  
+  # Functions directory (optional)
+  # functions = "netlify/functions"
+
+# Redirect rules for SPA routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Security headers
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Cache control for assets
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    # Don't cache HTML
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.json"
+  [headers.values]
+    # Cache JSON files for 1 hour
+    Cache-Control = "public, max-age=3600"
+
+# Environment variables (set in Netlify dashboard)
+# WHATSAPP_NUMBER = "+201012345678"
